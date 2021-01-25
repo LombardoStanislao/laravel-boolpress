@@ -18,7 +18,9 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('nickname');
             $table->date('release_date');
-            $table->text('post_text');
+            $table->string('post_title');
+            $table->string('post_subtitle')->nullable();
+            $table->mediumText('post_text');
             $table->timestamps();
         });
     }
