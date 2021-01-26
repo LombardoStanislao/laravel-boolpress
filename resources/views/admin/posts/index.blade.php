@@ -4,6 +4,15 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 mt-50">
+            <div class="all-posts">
+                <h1 >Tutti i post</h1>
+                <span>
+                    <a href="#" class="btn btn-success">
+                        Aggiungi un post
+                    </a>
+                </span>
+            </div>
+
             <table class="table">
                 <thead>
                     <tr>

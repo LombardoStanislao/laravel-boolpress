@@ -33,6 +33,11 @@ ul a:hover {
   text-decoration: none;
 }
 
+.all-posts {
+  display: flex;
+  justify-content: space-between;
+}
+
 .text-white {
   color: #d7e4f2;
 }
