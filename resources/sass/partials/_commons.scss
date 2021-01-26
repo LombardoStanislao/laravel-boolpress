@@ -1,0 +1,21 @@
+.text-white {
+    color: $text-white;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.mt-25 {
+    margin-top: 25px;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+.pt-50 {
+    padding-top: 50px;
+}

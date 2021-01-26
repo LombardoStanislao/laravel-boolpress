@@ -1,0 +1,35 @@
+.admin-navbar {
+    background-color: #34567a;
+}
+
+.navbar-left {
+    float: left;
+    width: 25%;
+    height: 300px;
+}
+
+.main-page {
+    float: left;
+    width: 75%;
+
+}
+
+ul {
+    list-style-type: none;
+
+    a {
+
+        .dashboard-icons {
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+        }
+
+        span {
+            margin-left: 20px;
+        }
+        &:hover{
+            text-decoration: none;
+        }
+    }
+}
