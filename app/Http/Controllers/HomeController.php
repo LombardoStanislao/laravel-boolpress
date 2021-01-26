@@ -25,4 +25,8 @@ class HomeController extends Controller
     {
         return view('guests/index');
     }
+    public function contatti()
+    {
+        return view('guests/contatti');
+    }
 }

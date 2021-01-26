@@ -15,7 +15,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'posts' => Post::all()
+        ];
+        return view('admin.posts.index', $data);
     }
 
     /**
@@ -47,7 +50,13 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        if ($post) {
+            $data = [
+                'post' => $post
+            ];
+            return view('admin.posts.show', $data);
+        }
+        abort(404);
     }
 
     /**
@@ -58,7 +67,13 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        if ($post) {
+            $data = [
+                'post' => $post
+            ];
+            return view('admin.posts.edit', $data);
+        }
+        abort(404);
     }
 
     /**
@@ -70,7 +85,9 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->all();
+        $post->update($data);
+        return redirect()->route('admin.posts.show', $post->id);
     }
 
     /**

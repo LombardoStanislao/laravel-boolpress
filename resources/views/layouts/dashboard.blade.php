@@ -81,7 +81,7 @@
                         </a>
                     </li>
                     <li class="mt-25">
-                        <a href="{{ route('admin.index') }}">
+                        <a href="{{ route('admin.posts.index') }}">
                             <div class="dashboard-icons">
                                 <i class="fas fa-clipboard fa-2x"></i>
                             </div>
