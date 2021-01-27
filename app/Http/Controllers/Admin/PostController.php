@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -88,8 +89,9 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($slug)
     {
+        $post = Post::where('slug', $slug)->first();
         if ($post) {
             $data = [
                 'post' => $post
@@ -106,12 +108,13 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $slug)
     {
-        $data = $request->all();;
+        $post = Post::where('slug', $slug)->first();
+        $data = $request->all();
         if ($data['post_title'] != $post->post_title) {
             // create slug
-            $slug = Str::slug($newPost->post_title);
+            $slug = Str::slug($post->post_title);
             // save original slug without changes
             $base_slug = $slug;
             // check if it already exists in the db
@@ -128,8 +131,9 @@ class PostController extends Controller
             // If it leave this loop i'm sure that there aren't $slug with the same name
             $data['slug'] = $slug;
         }
+
         $post->update($data);
-        return redirect()->route('admin.posts.show', $post->id);
+        return redirect()->route('admin.posts.show', $post->slug);
     }
 
     /**
@@ -140,6 +144,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('admin.posts.index');
     }
 }

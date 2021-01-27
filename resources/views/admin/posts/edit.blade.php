@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12 mt-50">
-            <form action="{{route('admin.posts.update', ['post' => $post->id])}}" method="POST">
+            <form action="{{route('admin.posts.update', ['post' => $post->slug])}}" method="POST">
                 @csrf
                 @method('PUT')
               <div class="form-group">

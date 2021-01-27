@@ -33,6 +33,17 @@
                             <td>
                                 <a class="btn btn-info text-white" href="{{route('admin.posts.show', ['post' => $post->slug] )}}">Visualizza</a>
                             </td>
+                            <td>
+                                <a class="btn btn-warning" href="{{route('admin.posts.edit', ['post' => $post->slug] )}}">Modifica</a>
+                            </td>
+                            <td>
+                                <form class="" action="{{route('admin.posts.destroy', ['post' => $post->id])}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" name="button">Elimina</button>
+                                </form>
+
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
