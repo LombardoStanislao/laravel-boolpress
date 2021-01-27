@@ -19,6 +19,16 @@
                 <textarea class="form-control" rows="8" name="post_text" placeholder="Scrivi il testo del post qui..."></textarea>
               </div>
               <div class="form-group">
+                <label>Categoria</label>
+                <select class="form-control" name="category_id">
+                    <option value="">Seleziona una categoria</option>
+                    @foreach ($categories as $category)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach
+
+                </select>
+              </div>
+              <div class="form-group">
                   <button type="submit" name="button" class="btn btn-success">Crea nuovo post</button>
               </div>
             </form>

@@ -20,6 +20,18 @@
                 <textarea class="form-control" rows="8" name="post_text" placeholder="Scrivi il testo del post qui...">{{$post->post_text}}</textarea>
               </div>
               <div class="form-group">
+                <label>Categoria</label>
+                <select class="form-control" name="category_id">
+                    <option value="">Seleziona una categoria</option>
+                    @foreach ($categories as $category)
+                        <option value="{{$category->id}}" {{$category->id == $post->category_id ? 'selected=selected' : ''}}>
+                            {{$category->name}}
+                        </option>
+                    @endforeach
+
+                </select>
+              </div>
+              <div class="form-group">
                   <button type="submit" name="button" class="btn btn-success">Modifica Post</button>
               </div>
             </form>

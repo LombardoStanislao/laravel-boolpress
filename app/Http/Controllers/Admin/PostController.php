@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $data = [
+            'categories' => Category::all()
+        ];
+        return view('admin.posts.create', $data);
     }
 
     /**
@@ -94,7 +98,8 @@ class PostController extends Controller
         $post = Post::where('slug', $slug)->first();
         if ($post) {
             $data = [
-                'post' => $post
+                'post' => $post,
+                'categories' => Category::all()
             ];
             return view('admin.posts.edit', $data);
         }
