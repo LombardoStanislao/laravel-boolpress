@@ -28,7 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -39,7 +39,29 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $newPost = new Post();
+        $newPost->fill($data);
+        // create slug
+        $slug = Str::slug($newPost->post_title);
+        // save original slug without changes
+        $base_slug = $slug;
+        // check if it already exists in the db
+        $found_existing_slug = Post::where('slug', $slug)->first();
+        $counter = 1;
+        // create while loop if $found_existing_slug = true
+
+        while ($found_existing_slug) {
+            $slug = $base_slug . '-' . $counter;
+            $counter++;
+            $found_existing_slug = Post::where('slug', $slug)->first();
+        }
+
+        // If it leave this loop i'm sure that there aren't $slug with the same name
+        $newPost->slug = $slug;
+        $newPost->save();
+        return redirect()->route('admin.posts.index');
+
     }
 
     /**
@@ -48,8 +70,9 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($slug)
     {
+        $post = Post::where('slug', $slug)->first();
         if ($post) {
             $data = [
                 'post' => $post
@@ -85,7 +108,26 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $data = $request->all();
+        $data = $request->all();;
+        if ($data['post_title'] != $post->post_title) {
+            // create slug
+            $slug = Str::slug($newPost->post_title);
+            // save original slug without changes
+            $base_slug = $slug;
+            // check if it already exists in the db
+            $found_existing_slug = Post::where('slug', $slug)->first();
+            $counter = 1;
+            // create while loop if $found_existing_slug = true
+
+            while ($found_existing_slug) {
+                $slug = $base_slug . '-' . $counter;
+                $counter++;
+                $found_existing_slug = Post::where('slug', $slug)->first();
+            }
+
+            // If it leave this loop i'm sure that there aren't $slug with the same name
+            $data['slug'] = $slug;
+        }
         $post->update($data);
         return redirect()->route('admin.posts.show', $post->id);
     }

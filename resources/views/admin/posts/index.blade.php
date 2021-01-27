@@ -7,7 +7,7 @@
             <div class="all-posts">
                 <h1 >Tutti i post</h1>
                 <span>
-                    <a href="#" class="btn btn-success">
+                    <a href="{{route('admin.posts.create')}}" class="btn btn-success">
                         Aggiungi un post
                     </a>
                 </span>
@@ -31,7 +31,7 @@
                             <td>{{$post->post_subtitle}}</td>
                             <td>{{$post->slug}}</td>
                             <td>
-                                <a class="btn btn-info text-white" href="{{route('admin.posts.show', ['post' => $post->id] )}}">Visualizza</a>
+                                <a class="btn btn-info text-white" href="{{route('admin.posts.show', ['post' => $post->slug] )}}">Visualizza</a>
                             </td>
                         </tr>
                     @endforeach

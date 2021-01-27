@@ -8,16 +8,16 @@
                 @csrf
                 @method('PUT')
               <div class="form-group">
-                <label for="formGroupExampleInput">Titolo</label>
-                <input type="text" class="form-control" placeholder="Titolo" value="{{$post->post_title}}">
+                <label>Titolo</label>
+                <input type="text" class="form-control" placeholder="Titolo" name="post_title" value="{{$post->post_title}}">
               </div>
               <div class="form-group">
-                <label for="formGroupExampleInput2">Sottotitolo</label>
-                <input type="text" class="form-control" placeholder="Sottotitolo" value="{{$post->post_subtitle}}">
+                <label>Sottotitolo</label>
+                <input type="text" class="form-control" placeholder="Sottotitolo" name="post_subtitle" value="{{$post->post_subtitle}}">
               </div>
               <div class="form-group">
-                <label for="formGroupExampleInput2">Testo del post</label>
-                <input type="text" class="form-control" placeholder="Testo" value="{{$post->post_text}}">
+                <label>Testo del post</label>
+                <textarea class="form-control" rows="8" name="post_text" placeholder="Scrivi il testo del post qui...">{{$post->post_text}}</textarea>
               </div>
               <div class="form-group">
                   <button type="submit" name="button" class="btn btn-success">Modifica Post</button>
