@@ -102,7 +102,7 @@
                         </a>
                     </li>
                     <li class="mt-25">
-                        <a href="{{ route('admin.index') }}">
+                        <a href="{{ route('admin.categories.index') }}">
                             <div class="dashboard-icons">
                                 <i class="fas fa-list-ol fa-2x"></i>
                             </div>
