@@ -80,7 +80,7 @@ class CategoryController extends Controller
         ];
         return view('admin.categories.show',  $data);
         // Opzione lunga e scomoda
-
+        //
         // $category = Category::find($id);
         // $tutti_i_post_della_categoria = Post::where('category_id', $category->id)->get();
         // $data = [
@@ -112,7 +112,7 @@ class CategoryController extends Controller
         $form_updated = $request->all();
         if ($form_updated['name'] != $category->name) {
             // create slug
-            $slug = Str::slug($category->name);
+            $slug = Str::slug($form_updated['name']);
             // save original slug without changes
             $base_slug = $slug;
             // check if it already exists in the db

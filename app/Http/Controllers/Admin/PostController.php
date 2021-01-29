@@ -115,11 +115,13 @@ class PostController extends Controller
      */
     public function update(Request $request, $slug)
     {
+
         $post = Post::where('slug', $slug)->first();
         $data = $request->all();
+
         if ($data['post_title'] != $post->post_title) {
             // create slug
-            $slug = Str::slug($post->post_title);
+            $slug = Str::slug($data['post_title']);
             // save original slug without changes
             $base_slug = $slug;
             // check if it already exists in the db
