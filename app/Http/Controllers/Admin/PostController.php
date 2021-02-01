@@ -51,7 +51,8 @@ class PostController extends Controller
             'post_title' => 'required|max:255',
             'post_subtitle' => 'max:255',
             'post_text' => 'required',
-            'category_id' => 'exists:categories,id|nullable|numeric'
+            'category_id' => 'exists:categories,id|nullable|numeric',
+            'tags' => 'exists:tags,id|nullable'
         ]);
         $newPost = new Post();
         $newPost->fill($data);
@@ -73,7 +74,11 @@ class PostController extends Controller
         // If it leave this loop i'm sure that there aren't $slug with the same name
         $newPost->slug = $slug;
         $newPost->save();
-        $newPost->tags()->sync($data['tags']);
+
+        if (array_key_exists('tags', $data)) {
+            $newPost->tags()->sync($data['tags']);
+        }
+
         return redirect()->route('admin.posts.index');
 
     }
@@ -125,6 +130,13 @@ class PostController extends Controller
      */
     public function update(Request $request, $slug)
     {
+        $request->validate([
+            'post_title' => 'required|max:255',
+            'post_subtitle' => 'max:255',
+            'post_text' => 'required',
+            'category_id' => 'exists:categories,id|nullable|numeric',
+            'tags' => 'exists:tags,id|nullable'
+        ]);
 
         $post = Post::where('slug', $slug)->first();
         $data = $request->all();
@@ -150,7 +162,9 @@ class PostController extends Controller
         }
 
         $post->update($data);
-        $post->tags()->sync($data['tags']);
+        if (array_key_exists('tags', $data)) {
+            $newPost->tags()->sync($data['tags']);
+        }
         return redirect()->route('admin.posts.show', $post->slug);
     }
 
