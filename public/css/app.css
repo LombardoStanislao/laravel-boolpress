@@ -60,6 +60,10 @@ ul a:hover {
   padding-top: 50px;
 }
 
+.form-check {
+  margin: 20px 0;
+}
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors

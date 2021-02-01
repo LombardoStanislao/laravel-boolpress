@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Tag;
 use App\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -31,7 +32,8 @@ class PostController extends Controller
     public function create()
     {
         $data = [
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'tags' => Tag::all()
         ];
         return view('admin.posts.create', $data);
     }
@@ -45,6 +47,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $request->validate([
+            'post_title' => 'required|max:255',
+            'post_subtitle' => 'max:255',
+            'post_text' => 'required',
+            'category_id' => 'exists:categories,id|nullable|numeric'
+        ]);
         $newPost = new Post();
         $newPost->fill($data);
         // create slug
@@ -65,6 +73,7 @@ class PostController extends Controller
         // If it leave this loop i'm sure that there aren't $slug with the same name
         $newPost->slug = $slug;
         $newPost->save();
+        $newPost->tags()->sync($data['tags']);
         return redirect()->route('admin.posts.index');
 
     }
@@ -99,7 +108,8 @@ class PostController extends Controller
         if ($post) {
             $data = [
                 'post' => $post,
-                'categories' => Category::all()
+                'categories' => Category::all(),
+                'tags' => Tag::all()
             ];
             return view('admin.posts.edit', $data);
         }
@@ -140,6 +150,7 @@ class PostController extends Controller
         }
 
         $post->update($data);
+        $post->tags()->sync($data['tags']);
         return redirect()->route('admin.posts.show', $post->slug);
     }
 
@@ -151,6 +162,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $post->tags()->sync([]);
         $post->delete();
         return redirect()->route('admin.posts.index');
     }

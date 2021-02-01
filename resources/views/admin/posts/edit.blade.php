@@ -30,6 +30,15 @@
                     @endforeach
 
                 </select>
+
+                @foreach ($tags as $tag)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="{{$tag->id}}" name="tags[]"
+                        {{ $post->tags->contains($tag) ? 'checked=checked' : ''}}>
+                        <label class="form-check-label">{{$tag->name}}</label>
+                    </div>
+
+                @endforeach
               </div>
               <div class="form-group">
                   <button type="submit" name="button" class="btn btn-success">Modifica Post</button>

@@ -10,7 +10,15 @@
                 <h4 class="card-title">{{$post->post_title}}</h4>
                 <h3 class="card-title">{{$post->post_subtitle}}</h3>
                 <p class="card-text">{{$post->post_text}}</p>
-                <h6 class="card-text">Categoria: {{$post->category ? $post->category->name : '-'}}</h6>
+                <h6 class="card-text text-left">Categoria: {{$post->category ? $post->category->name : '-'}}</h6>
+                <h6 class="card-title text-left">
+                    Tags:
+                    @forelse ($post->tags as $tag)
+                        {{$tag->name}}{{ !$loop->last ? ',' : '' }}
+                    @empty
+                        -
+                    @endforelse
+                </h6>
                 <a href="{{route('admin.posts.edit', ['post' => $post->slug])}}" class="btn btn-warning">Modifica</a>
                 <form class="d-inline-block" action="{{route('admin.posts.destroy', ['post' => $post->id])}}" method="POST">
                     @csrf
